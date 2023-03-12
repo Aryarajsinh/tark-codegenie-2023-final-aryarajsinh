@@ -39,3 +39,118 @@ class Train {
         return this.coachTypes.getOrDefault(coachType, 0);
     }
 }
+
+class TicketBookingSystem {
+    private final List<Train> trains;
+
+    public TicketBookingSystem() {
+
+        this.trains = new ArrayList<Train>();
+    }
+
+    public void addTrain(Train train) {
+        this.trains.add(train)
+        ;
+    }
+
+    public Train findTrain(int trainNumber) {
+        for (Train train : this.trains) {
+            if (train.getNumber() == trainNumber) {
+                return train;
+            }
+        }
+        return null;
+    }
+
+    public int calculateFare(int distance, String coachType) {
+        int fare = 0;
+        switch (coachType) {
+            case "S1":
+                fare = 1 * distance;
+                break;
+                case "S2":
+                fare = 1 * distance;
+                break;
+            case "B1":
+                fare = 2 * distance;
+                break;
+            case "A1":
+                fare = 3 * distance;
+                break;
+            case "H1":
+                fare = 4 * distance;
+                break;
+        }
+        return fare;
+    }
+
+    public boolean bookTickets(int trainNumber, String startStation, String endStation, String travelDate, String coachType, int numPassengers) {
+
+        Train train = findTrain(trainNumber);
+        if (train == null) {
+            System.out.println("Invalid train number");
+            return false;
+        }
+        if (!train.getStartStation().equals(startStation) || !train.getEndStation().equals(endStation)) {
+            System.out.println("Train does not travel between the given stations");
+            return false;
+        }
+        int distance = train.getDistance();
+        int fare = calculateFare(distance, coachType);
+        int numSeats = train.getNumSeats(coachType);
+        if (numPassengers > numSeats) {
+            System.out.println("Not enough seats available");
+            return false;
+        }
+        System.out.println("Booking successful!");
+        System.out.println("Train Number: " + trainNumber);
+        System.out.println("Start Station: " + startStation);
+        System.out.println("End Station: " + endStation);
+        System.out.println("Travel Date: " + travelDate);
+        System.out.println("Class/Coach Type: " + coachType);
+        System.out.println("Number of Passengers: " + numPassengers);
+        System.out.println("Fare: " + fare*numPassengers);
+        return true;
+    }
+}
+
+public class main {
+    public static void main(String[] args) {
+        Train train1 = new Train (37393, "Ahmedabad","Pune", 700);
+        Train train2 = new Train (17726, "Rajkot", "Mumbai", 750);
+        Train train3 = new Train (22548, "Ahmedabad", "Surat", 300);
+        Train train4 = new Train (37393, "Mumbai", "Jaipur", 1000);
+        train1.addCoach ("S1",72);
+        train1.addCoach ("S2",72);
+        train1.addCoach ("B1",72);
+        train1.addCoach ("A1",48);
+        train1.addCoach ("H1",24);
+        train2.addCoach ("S1",72);
+        train2.addCoach ("S2",72);
+        train2.addCoach ("B1",72);
+        train2.addCoach ("A1",48);
+        train2.addCoach ("H1",24);
+        train3.addCoach ("S1",15);
+        train3.addCoach ("S2",20);
+        train3.addCoach ("B1",36);
+        train3.addCoach ("A1",48);
+
+        train4.addCoach ("S2",15);
+        train4.addCoach ("B1",20);
+        train4.addCoach ("A1",25);
+        train4.addCoach ("H1",10);
+
+
+
+        TicketBookingSystem bk = new TicketBookingSystem();
+
+
+
+
+
+    }
+
+    }
+
+
+
