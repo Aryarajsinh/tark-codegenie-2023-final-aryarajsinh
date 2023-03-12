@@ -1,0 +1,41 @@
+import java.util.*;
+
+class Train {
+    private int number;
+    private String startStation;
+    private String endStation;
+    private int distance;
+    private Map<String, Integer> coachTypes;
+
+    public Train(int number, String startStation, String endStation, int distance) {
+        this.number = number;
+        this.startStation = startStation;
+        this.endStation = endStation;
+        this.distance = distance;
+        this.coachTypes = new HashMap<String, Integer>();
+    }
+
+    public void addCoach(String coachType, int numSeats) {
+        this.coachTypes.put(coachType, numSeats);
+    }
+
+    public int getNumber() {
+        return this.number;
+    }
+
+    public String getStartStation() {
+        return this.startStation;
+    }
+
+    public String getEndStation() {
+        return this.endStation;
+    }
+
+    public int getDistance() {
+        return this.distance;
+    }
+
+    public int getNumSeats(String coachType) {
+        return this.coachTypes.getOrDefault(coachType, 0);
+    }
+}
